@@ -1,0 +1,60 @@
+.listItemWrapper {
+  width: 100%;
+}
+
+.listItemWrapper:hover {
+  cursor: pointer;
+}
+
+.listItemIcons {
+  position: absolute;
+  right: 0;
+}
+
+.expandedWrapper {
+  height: calc(100vh - 144px);
+  padding-top: 24px;
+  padding-left: 48px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.title {
+  position: block;
+}
+
+.title:hover {
+  cursor: pointer;
+}
+
+.titleInput {
+  position: block;
+}
+
+.timeContainer {
+  margin: 24px 0;
+}
+
+.itemsContainer {
+  position: relative;
+  margin: 24px 0;
+}
+
+.slotBar {
+  margin-bottom: 24px;
+  width: 100%;
+  height: 8px;
+  composes: lightGreyBG from "../common/styles.module.css";
+}
+
+.itemWrapper {
+  position: relative;
+}
+
+.itemWrapper > i {
+  opacity: 0;
+}
+
+.itemWrapper:hover > i {
+  opacity: 1;
+}

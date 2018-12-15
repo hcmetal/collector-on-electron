@@ -1,0 +1,37 @@
+.whiteColor {
+  color: #eee;
+}
+
+.greyColor {
+  color: #cccccc;
+}
+
+.blueColor {
+  color: #1890ff;
+}
+
+.redColor {
+  color: #f5222d;
+}
+
+.greenColor {
+  color: #00aa00;
+}
+
+.greenColorLight {
+  color: #00dd00;
+}
+
+.lightGreyBG {
+  background: #eeeeee;
+}
+
+.greyBG {
+  background: #cccccc;
+}
+
+.textLogo {
+  composes: whiteColor;
+  font-size: 14px;
+  font-weight: 500;
+}

@@ -1,0 +1,21 @@
+.collector {
+  height: 100%;
+}
+
+.logo {
+  composes: textLogo from "../common/styles.module.css";
+  margin-right: 24px;
+}
+
+.menuWrapper {
+  margin-right: 24px;
+  display: inline-block;
+}
+
+.footerContent {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

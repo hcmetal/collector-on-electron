@@ -1,0 +1,12 @@
+.expandedWrapper {
+  height: calc(100vh - 144px);
+  padding-top: 24px;
+  padding-left: 48px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.itemsContainer {
+  position: relative;
+  margin: 24px 0;
+}

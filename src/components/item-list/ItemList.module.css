@@ -1,0 +1,19 @@
+.wrapper {
+  position: relative;
+}
+
+.itemsCounter {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+}
+
+.createNewItem {
+  user-select: none;
+  composes: greenColor from "../common/styles.module.css";
+}
+
+.createNewItem:hover {
+  color: #00dd00;
+  cursor: pointer;
+}

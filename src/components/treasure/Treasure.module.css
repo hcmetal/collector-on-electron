@@ -1,0 +1,273 @@
+.listItemWrapper {
+  width: 100%;
+}
+
+.listItemWrapper:hover {
+  cursor: pointer;
+}
+
+.listItemIcons {
+  position: absolute;
+  right: 0;
+}
+
+.expandedWrapper {
+  height: calc(100vh - 144px);
+  padding-top: 24px;
+  padding-left: 48px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.title {
+  position: block;
+}
+
+.title:hover {
+  cursor: pointer;
+}
+
+.titleInput {
+  position: block;
+}
+
+.contentControl {
+  margin-top: 16px;
+}
+
+.contentIcon {
+  margin-right: 16px;
+  user-select: none;
+}
+
+.contentIconEnabled {
+  composes: contentIcon;
+  composes: blueColor from "../common/styles.module.css";
+}
+
+.pictureIconEnabled {
+  composes: contentIconEnabled;
+}
+
+.pictureIconEnabled:hover {
+  cursor: pointer;
+}
+
+.contentIconDisabled {
+  composes: contentIcon;
+  composes: greyColor from "../common/styles.module.css";
+}
+
+.contentIconDisabled:hover {
+  cursor: pointer;
+}
+
+.pictureSelector {
+  visibility: hidden;
+  width: 0;
+  height: 19px;
+  margin-right: 56px;
+  position: relative;
+}
+
+.pictureSelectorYay {
+  composes: pictureSelector;
+}
+
+.pictureSelectorNay {
+  composes: pictureSelector;
+}
+
+.pictureSelectorYay::before {
+  content: "Picture";
+  cursor: pointer;
+  user-select: none;
+  display: inline-block;
+  visibility: visible;
+  position: absolute;
+  top: 3px;
+  color: #1890ff;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.pictureSelectorNay::before {
+  content: "Picture";
+  cursor: pointer;
+  user-select: none;
+  display: inline-block;
+  visibility: visible;
+  position: absolute;
+  top: 3px;
+  color: #cccccc;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.pictureTiles {
+  width: 100%;
+  margin: auto;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  text-align: left;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.pictureTile {
+  display: inline-block;
+  width: calc(25% - 0.4rem);
+  padding-bottom: calc(25% - 0.4rem);
+  margin: 0.2rem;
+  margin-bottom: -0.1rem;
+  position: relative;
+  overflow: hidden;
+  transition: opacity 0.2s ease-in-out;
+  border-radius: 4px;
+}
+
+.pictureTile:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.pictureTile > i {
+  opacity: 0;
+}
+
+.pictureTile:hover > i {
+  opacity: 1;
+}
+
+.pictureTileDrop {
+  display: inline-block;
+  width: calc(25% - 0.4rem);
+  padding-bottom: calc(25% - 0.4rem);
+  margin: 0.2rem;
+  margin-bottom: -0.1rem;
+  position: relative;
+  overflow: hidden;
+  composes: greyBG from "../common/styles.module.css";
+  opacity: 0.5;
+  border-radius: 4px;
+}
+
+.pictureTileDropContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.picture {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.pictureInfo {
+  position: block;
+}
+
+.pictureInfo:hover {
+  cursor: pointer;
+}
+
+.pictureInfoInput {
+  position: block;
+  margin-bottom: 16px;
+}
+
+.pictureModalImage {
+  width: 100%;
+  height: 100%;
+  max-height: 600px;
+  object-fit: contain;
+}
+
+.imageURL {
+  composes: greyColor from "../common/styles.module.css";
+}
+
+.noteContainer {
+  position: relative;
+  margin: 24px 0;
+}
+
+.noteContainer > i {
+  opacity: 0;
+}
+
+.noteContainer:hover > i {
+  opacity: 1;
+}
+
+.noteContent {
+  padding-right: 24px;
+  text-align: left;
+  font-size: 14px;
+  line-height: 2.5;
+}
+
+.noteInput {
+  height: 100%;
+  margin-bottom: 8px;
+}
+
+.noteEdit {
+  margin-top: 16px;
+}
+
+.tod {
+  margin: 24px 0;
+  user-select: none;
+}
+
+.todYay {
+  composes: tod;
+  composes: blueColor from "../common/styles.module.css";
+}
+
+.todYay:hover {
+  cursor: pointer;
+}
+
+.todNay {
+  composes: tod;
+  composes: greyColor from "../common/styles.module.css";
+}
+
+.todNay:hover {
+  cursor: pointer;
+}
+
+.discover {
+  margin: 24px 0;
+  user-select: none;
+}
+
+.discovered {
+  composes: discover;
+  composes: blueColor from "../common/styles.module.css";
+}
+
+.discovered:hover {
+  cursor: pointer;
+}
+
+.undiscovered {
+  composes: discover;
+  composes: redColor from "../common/styles.module.css";
+}
+
+.undiscovered:hover {
+  cursor: pointer;
+}
+
+.timeContainer {
+  margin: 24px 0;
+}
