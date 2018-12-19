@@ -6,6 +6,10 @@
   cursor: pointer;
 }
 
+.listItemTitle {
+  margin-right: 48px;
+}
+
 .listItemIcons {
   position: absolute;
   right: 0;
@@ -207,19 +211,52 @@
 }
 
 .noteContent {
-  padding-right: 24px;
-  text-align: left;
   font-size: 14px;
   line-height: 2.5;
+  min-height: 50px;
+  padding: 0 16px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.noteContentShow {
+  composes: noteContent;
+}
+
+.noteContentHide {
+  visibility: hidden;
+  composes: noteContent;
 }
 
 .noteInput {
-  height: 100%;
+  border: none;
+  overflow: auto;
+  outline: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  overflow: hidden;
+  resize: none;
+  position: absolute;
+  font-size: 14px;
+  line-height: 2.5;
+  min-height: 200px;
+  padding: 0 16px;
   margin-bottom: 8px;
 }
 
 .noteEdit {
+  text-align: right;
   margin-top: 16px;
+}
+
+.noteEditShow {
+  composes: noteEdit;
+}
+
+.noteEditHide {
+  visibility: hidden;
+  composes: noteEdit;
 }
 
 .tod {
@@ -270,4 +307,8 @@
 
 .timeContainer {
   margin: 24px 0;
+}
+
+.gap {
+  height: 96px;
 }

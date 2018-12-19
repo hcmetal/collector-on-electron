@@ -1,59 +1,27 @@
 import React from "react";
+import { collectorMachineInterface } from "../collector/Collector";
 import { Collapse, List, Icon } from "antd";
-import styles from "./ItemList.module.css";
 import { capitalize } from "./../common/capitalize";
-import Treasure from "./../treasure/Treasure";
-import Collection from "./../collection/Collection";
 import { filterList } from "./../common/filterList";
+import TreasureListItem from "./../treasure/TreasureListItem";
+import CollectionListItem from "./../collection/CollectionListItem";
+import styles from "./ItemList.module.css";
 
 const Panel = Collapse.Panel;
 
-const ItemList = ({
-  type,
-  items,
-  openedItemsIDs,
-  focusedItemID,
-  todItemID,
-  handleCreateItem,
-  onOpenItem,
-  collectionSlotSelected,
-  onAddToCollection,
-  inCurrentCollectionIDs,
-  filterBy,
-  handleShowWorkbench
-}) => {
+const ItemList = ({ type, items }) => {
+  const { filterBy } = collectorMachineInterface.context;
+
+  const { createItem, showWorkbench } = collectorMachineInterface;
+
   const numberOfItems = items.length;
 
   const filteredItems = filterList(filterBy, items);
   const numberOfFileteredItems = filteredItems.length;
 
   const listItemContent = item => {
-    if (type === "treasure")
-      return (
-        <Treasure
-          item={item}
-          openedItemsIDs={openedItemsIDs}
-          focusedItemID={focusedItemID}
-          todItemID={todItemID}
-          mode={"list"}
-          handleOpenItem={onOpenItem}
-          collectionSlotSelected={collectionSlotSelected}
-          handleAddToCollection={onAddToCollection}
-          inCurrentCollectionIDs={inCurrentCollectionIDs}
-          handleShowWorkbench={handleShowWorkbench}
-        />
-      );
-    if (type === "collection")
-      return (
-        <Collection
-          item={item}
-          openedItemsIDs={openedItemsIDs}
-          focusedItemID={focusedItemID}
-          mode={"list"}
-          handleOpenItem={onOpenItem}
-          handleShowWorkbench={handleShowWorkbench}
-        />
-      );
+    if (type === "treasure") return <TreasureListItem item={item} />;
+    if (type === "collection") return <CollectionListItem item={item} />;
   };
 
   return (
@@ -71,8 +39,8 @@ const ItemList = ({
                 <span
                   className={styles.createNewItem}
                   onClick={() => {
-                    handleShowWorkbench();
-                    handleCreateItem(type);
+                    showWorkbench();
+                    createItem(type);
                   }}
                 >
                   <Icon type="plus" /> {item.title}

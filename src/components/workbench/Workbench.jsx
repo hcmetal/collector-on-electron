@@ -3,26 +3,19 @@ import { Layout, Menu, Icon } from "antd";
 import styles from "./Workbench.module.css";
 import Treasure from "../treasure/Treasure";
 import Collection from "./../collection/Collection";
-import Quest from "./../quest/Quest";
+import { collectorMachineInterface } from "../collector/Collector";
 
 const { Content } = Layout;
 
-const Workbench = ({
-  items,
-  openedItemsIDs,
-  focusedItemID,
-  todItemID,
-  onOpenItem,
-  handleCloseItem,
-  handleFocusItem,
-  onCommitItem,
-  onDeleteItem,
-  onSetTODItem,
-  onToggleCollectionSlot,
-  addToCollectionItemID,
-  onAddToCollection,
-  onSetInCurrentCollectionIDs
-}) => {
+const Workbench = () => {
+  const {
+    items,
+    openedItemsIDs,
+    focusedItemID
+  } = collectorMachineInterface.context;
+
+  const { closeItem, focusItem } = collectorMachineInterface;
+
   // Arrange opened tabs in the order of open events
   const openedItems = openedItemsIDs.map(id =>
     items.find(item => item.id === id)
@@ -31,44 +24,12 @@ const Workbench = ({
   const focusedItem = items.filter(item => item.id === focusedItemID)[0];
 
   const content = focusedItem => {
-    if (focusedItem.type === "treasure")
-      return (
-        <Treasure
-          item={focusedItem}
-          focusedItemID={focusedItemID}
-          todItemID={todItemID}
-          mode={"expanded"}
-          handleCommitItem={onCommitItem}
-          handleDeleteItem={onDeleteItem}
-          handleSetTODItem={onSetTODItem}
-        />
-      );
-    if (focusedItem.type === "collection")
-      return (
-        <Collection
-          items={items}
-          item={focusedItem}
-          focusedItemID={focusedItemID}
-          mode={"expanded"}
-          handleCommitItem={onCommitItem}
-          handleOpenItem={onOpenItem}
-          handleDeleteItem={onDeleteItem}
-          handleToggleCollectionSlot={onToggleCollectionSlot}
-          addToCollectionItemID={addToCollectionItemID}
-          handleAddToCollection={onAddToCollection}
-          handleSetInCurrentCollectionIDs={onSetInCurrentCollectionIDs}
-        />
-      );
-    if (focusedItem.type === "quest")
-      return (
-        <Quest
-          item={focusedItem}
-          focusedItemID={focusedItemID}
-          mode={"expanded"}
-          handleCommitItem={onCommitItem}
-          handleDeleteItem={onDeleteItem}
-        />
-      );
+    if (focusedItem.type === "treasure") {
+      return <Treasure item={focusedItem} />;
+    }
+    if (focusedItem.type === "collection") {
+      return <Collection item={focusedItem} />;
+    }
   };
 
   const emptyContent = () => {
@@ -87,7 +48,7 @@ const Workbench = ({
               <Menu.Item
                 key={item.id}
                 onClick={() => {
-                  handleFocusItem(item.id);
+                  focusItem(item.id);
                 }}
               >
                 <span>{item.title}</span>
@@ -101,7 +62,7 @@ const Workbench = ({
                   onClick={e => {
                     // Stop click event from bubbling to the parents
                     e.stopPropagation();
-                    handleCloseItem(item.id);
+                    closeItem(item.id);
                   }}
                 />
               </Menu.Item>

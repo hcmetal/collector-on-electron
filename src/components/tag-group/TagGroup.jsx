@@ -2,8 +2,11 @@ import React, { useEffect, useRef } from "react";
 import useMachine from "./../common/useMachine";
 import { Tag, Input, Tooltip, Icon } from "antd";
 import tagGroupMachine from "./tagGroupMachine";
+import { collectorMachineInterface } from "../collector/Collector";
 
-const TagGroup = ({ item, handleCommitItem }) => {
+const TagGroup = ({ item }) => {
+  const { commitItem } = collectorMachineInterface;
+
   const saveInputRef = useRef(null);
 
   const [state, send] = useMachine(
@@ -47,7 +50,7 @@ const TagGroup = ({ item, handleCommitItem }) => {
               afterClose={() => {
                 const newTags = tags.filter(originalTag => originalTag !== tag);
                 newItem.tags = newTags;
-                handleCommitItem(newItem);
+                commitItem(newItem);
               }}
               style={{
                 marginBottom: "8px"
@@ -84,7 +87,7 @@ const TagGroup = ({ item, handleCommitItem }) => {
               send("COMMIT_INPUT");
               const newTags = tags.concat(inputValue);
               newItem.tags = newTags;
-              handleCommitItem(newItem);
+              commitItem(newItem);
             }
           }}
         />

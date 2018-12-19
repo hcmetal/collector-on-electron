@@ -58,3 +58,26 @@
 .itemWrapper:hover > i {
   opacity: 1;
 }
+
+.quest {
+  margin: 24px 0;
+  user-select: none;
+}
+
+.isQuest {
+  composes: quest;
+  composes: blueColor from "../common/styles.module.css";
+}
+
+.isQuest:hover {
+  cursor: pointer;
+}
+
+.notQuest {
+  composes: quest;
+  composes: greyColor from "../common/styles.module.css";
+}
+
+.notQuest:hover {
+  cursor: pointer;
+}

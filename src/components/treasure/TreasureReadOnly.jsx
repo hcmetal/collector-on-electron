@@ -4,8 +4,11 @@ import convertURL from "./../common/convertURL";
 import useMachine from "../common/useMachine";
 import treasureReadOnlyMachine from "./treasureReadOnlyMachine";
 import { Modal } from "antd";
+import { collectorMachineInterface } from "../collector/Collector";
 
-const TreasureReadOnly = ({ item, handleOpenItem, handleOpenWorkbench }) => {
+const TreasureReadOnly = ({ item }) => {
+  const { openItem, showWorkbench } = collectorMachineInterface;
+
   const [state, send] = useMachine(treasureReadOnlyMachine);
 
   const { pictureModalName } = state.context;
@@ -30,8 +33,8 @@ const TreasureReadOnly = ({ item, handleOpenItem, handleOpenWorkbench }) => {
       <h2
         className={styles.title}
         onClick={() => {
-          handleOpenWorkbench();
-          handleOpenItem(item.id);
+          showWorkbench();
+          openItem(item.id);
         }}
       >
         {item.title}

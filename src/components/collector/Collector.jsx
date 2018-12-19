@@ -1,11 +1,11 @@
 import React from "react";
-import Safe from "../safe/Safe";
-import styles from "./Collector.module.css";
 import { Layout, Menu, Icon } from "antd";
 import useMachine from "./../common/useMachine";
 import collectorMachine, { collectorDefaultContext } from "./collectorMachine";
+import Safe from "../safe/Safe";
 import Workbench from "../workbench/Workbench";
 import Frontdesk from "../frontdesk/Frontdesk";
+import styles from "./Collector.module.css";
 
 const { Header, Sider, Footer } = Layout;
 
@@ -20,6 +20,8 @@ ipcRenderer.on("report", (event, arg) => {
 // Leave ipcRenderer.on(...) out of the sfc to avoid repeatedly creating listeners
 // which leads to memory leak
 let sendToCollectorMachine;
+
+export const collectorMachineInterface = {};
 
 ipcRenderer.once("send-context", (event, context) => {
   sendToCollectorMachine({ type: "LOAD_CONTEXT", context });
@@ -43,72 +45,76 @@ const Collector = () => {
   );
 
   const [state, send] = useMachine(persistedCollectorMachine);
-
   sendToCollectorMachine = send;
 
   ipcRenderer.send("load-context");
 
-  const {
-    items,
-    openedItemsIDs,
-    focusedItemID,
-    todItemID,
-    collectionSlotSelected,
-    addToCollectionItemID,
-    inCurrentCollectionIDs,
-    filterBy
-  } = state.context;
+  collectorMachineInterface.context = state.context;
 
-  const createItem = type => {
+  const { collectionSlotSelected } = state.context;
+
+  collectorMachineInterface.createItem = type => {
     send({ type: "CREATE_ITEM", value: type });
   };
 
-  const commitItem = item => {
+  collectorMachineInterface.commitItem = item => {
     const d = new Date();
     item.timeLastModify = `${d.getFullYear()}/${d.getMonth() +
       1}/${d.getDate()}`;
     send({ type: "COMMIT_ITEM", item });
   };
 
-  const deleteItem = id => {
+  collectorMachineInterface.deleteItem = id => {
     send({ type: "DELETE_ITEM", id });
   };
 
-  const openItem = id => {
+  collectorMachineInterface.openItem = id => {
     send({ type: "OPEN_ITEM", id });
   };
 
-  const closeItem = id => {
+  collectorMachineInterface.closeItem = id => {
     send({ type: "CLOSE_ITEM", id });
   };
 
-  const focusItem = id => {
+  collectorMachineInterface.focusItem = id => {
     send({ type: "FOCUS_ITEM", id });
   };
 
-  const setTODItem = id => {
+  collectorMachineInterface.setTODItem = id => {
     send({ type: "SET_TOD_ITEM", id });
   };
 
-  const toggleCollectionSlot = value => {
+  const toggleCollectionSlot = (collectorMachineInterface.toggleCollectionSlot = value => {
     send({ type: "TOGGLE_COLLECTION_SLOT", value });
-  };
+  });
 
-  const setInCurrentCollectionIDs = ids => {
+  collectorMachineInterface.setInCurrentCollectionIDs = ids => {
     send({ type: "SET_IN_CURRENT_COLLECTION_IDS", ids });
   };
 
-  const addToCollection = id => {
+  collectorMachineInterface.addToCollection = id => {
     send({ type: "ADD_TO_COLLECTION", id });
     send({ type: "TOGGLE_COLLECTION_SLOT", value: false });
   };
 
-  const commitFilter = query => {
+  collectorMachineInterface.commitFilter = query => {
     send({ type: "COMMIT_FILTER", query });
   };
 
-  const showWorkbench = () => {
+  collectorMachineInterface.showWorkbench = () => {
     send("SHOW_WORKBENCH");
+  };
+
+  collectorMachineInterface.showPlanner = () => {
+    send("SHOW_PLANNER");
+  };
+
+  collectorMachineInterface.showExhibition = () => {
+    send("SHOW_EXHIBITION");
+  };
+
+  collectorMachineInterface.expandQuest = key => {
+    send({ type: "EXPAND_QUEST", key });
   };
 
   return (
@@ -153,48 +159,11 @@ const Collector = () => {
               borderRight: "1px solid #ccc"
             }}
           >
-            <Safe
-              items={items}
-              openedItemsIDs={openedItemsIDs}
-              focusedItemID={focusedItemID}
-              todItemID={todItemID}
-              onCreateItem={createItem}
-              onOpenItem={openItem}
-              collectionSlotSelected={collectionSlotSelected}
-              onAddToCollection={addToCollection}
-              inCurrentCollectionIDs={inCurrentCollectionIDs}
-              filterBy={filterBy}
-              onCommitFilter={commitFilter}
-              onShowWorkbench={showWorkbench}
-            />
+            <Safe />
           </Sider>
           <Layout>
-            {state.matches("workbench") && (
-              <Workbench
-                items={items}
-                openedItemsIDs={openedItemsIDs}
-                focusedItemID={focusedItemID}
-                todItemID={todItemID}
-                onOpenItem={openItem}
-                handleCloseItem={closeItem}
-                handleFocusItem={focusItem}
-                onCommitItem={commitItem}
-                onDeleteItem={deleteItem}
-                onSetTODItem={setTODItem}
-                onToggleCollectionSlot={toggleCollectionSlot}
-                addToCollectionItemID={addToCollectionItemID}
-                onAddToCollection={addToCollection}
-                onSetInCurrentCollectionIDs={setInCurrentCollectionIDs}
-              />
-            )}
-            {state.matches("frontdesk") && (
-              <Frontdesk
-                items={items}
-                todItemID={todItemID}
-                onOpenItem={openItem}
-                onShowWorkbench={showWorkbench}
-              />
-            )}
+            {state.matches("workbench") && <Workbench />}
+            {state.matches("frontdesk") && <Frontdesk />}
           </Layout>
         </Layout>
         <Footer

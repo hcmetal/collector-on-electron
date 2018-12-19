@@ -2,10 +2,20 @@
   position: relative;
 }
 
+.wrapperDiscover {
+  position: relative;
+  margin-right: 24px;
+}
+
+.wrapperQuest {
+  position: relative;
+}
+
 .itemsCounter {
   position: absolute;
-  top: 12px;
-  right: 16px;
+  top: 18px;
+  right: 24px;
+  z-index: 2;
 }
 
 .createNewItem {
@@ -16,4 +26,21 @@
 .createNewItem:hover {
   color: #00dd00;
   cursor: pointer;
+}
+
+.listItemWrapper {
+  width: 100%;
+}
+
+.listItemWrapper:hover {
+  cursor: pointer;
+}
+
+.listItemTitle {
+  padding-right: 24px;
+}
+
+.listItemIcons {
+  position: absolute;
+  right: 0;
 }

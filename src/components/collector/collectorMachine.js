@@ -27,22 +27,9 @@ const createItem = type => {
       title: "New Collection",
       treasureIDs: [],
       tags: [],
+      isQuest: false,
       timeCreate: `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()}`,
       timeLastModify: `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()}`
-    };
-  }
-
-  if (type === "quest") {
-    return {
-      id: uuid(),
-      type: "quest",
-      title: "New Quest",
-      brief: "",
-      steps: [],
-      itemIDs: [],
-      tags: [],
-      timeStart: `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()}`,
-      timeFinish: undefined
     };
   }
 };
@@ -55,7 +42,9 @@ export const collectorDefaultContext = {
   collectionSlotSelected: false,
   addToCollectionItemID: "",
   inCurrentCollectionIDs: [],
-  filterBy: ""
+  filterBy: "",
+  frontdeskMode: "exhibition",
+  expandedQuestKeys: []
 };
 
 const collectorMachine = Machine({
@@ -188,7 +177,14 @@ const collectorMachine = Machine({
   states: {
     frontdesk: {
       on: {
-        SHOW_WORKBENCH: "workbench"
+        SHOW_WORKBENCH: "workbench",
+        SHOW_PLANNER: { actions: assign({ frontdeskMode: "planner" }) },
+        SHOW_EXHIBITION: { actions: assign({ frontdeskMode: "exhibition" }) },
+        EXPAND_QUEST: {
+          actions: assign({
+            expandedQuestKeys: (ctx, e) => e.key
+          })
+        }
       }
     },
     workbench: {
