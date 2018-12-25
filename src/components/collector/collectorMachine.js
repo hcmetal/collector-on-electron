@@ -43,7 +43,7 @@ export const collectorDefaultContext = {
   addToCollectionItemID: "",
   inCurrentCollectionIDs: [],
   filterBy: "",
-  frontdeskMode: "exhibition",
+  frontdeskMode: "planner",
   expandedQuestKeys: []
 };
 
@@ -182,7 +182,14 @@ const collectorMachine = Machine({
         SHOW_EXHIBITION: { actions: assign({ frontdeskMode: "exhibition" }) },
         EXPAND_QUEST: {
           actions: assign({
-            expandedQuestKeys: (ctx, e) => e.key
+            expandedQuestKeys: (ctx, e) => {
+              if (ctx.expandedQuestKeys.includes(e.key)) {
+                // Don't forget to return
+                return ctx.expandedQuestKeys.filter(key => key !== e.key);
+              } else {
+                return ctx.expandedQuestKeys.concat(e.key);
+              }
+            }
           })
         }
       }

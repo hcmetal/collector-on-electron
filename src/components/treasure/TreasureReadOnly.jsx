@@ -67,7 +67,8 @@ const TreasureReadOnly = ({ item }) => {
       {modalPicture && (
         <Modal
           title={modalPicture.url}
-          width={800}
+          style={{ top: 20 }}
+          width={900}
           visible={state.matches("showPictureModal")}
           okButtonProps={{ style: { display: "none" } }}
           okText="Copy"

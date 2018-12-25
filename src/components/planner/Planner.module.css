@@ -1,9 +1,11 @@
 .expandedWrapper {
   padding-top: 24px;
   padding-left: 48px;
+  padding-right: 48px;
   overflow-x: hidden;
   overflow-y: scroll;
   position: relative;
+  height: calc(100vh - 168px);
 }
 
 .itemsContainer {
@@ -18,4 +20,121 @@
   transform: translate(-50%, -50%);
   user-select: none;
   composes: greyColor from "../common/styles.module.css";
+}
+
+.questWrapper {
+  list-style: none;
+  margin-bottom: 16px;
+  padding: 0;
+}
+
+.questTitleWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  /* background: rgba(255, 0, 0, 0.25); */
+}
+
+.questIcon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.questTitle {
+  font-size: 14px;
+  font-weight: bold;
+  width: 200px;
+  margin: 8px 8px;
+}
+
+.questTitle:hover {
+  cursor: pointer;
+}
+
+.stepWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  /* background: rgba(255, 0, 0, 0.1); */
+}
+
+.stepIcon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.stepTitle {
+  width: 200px;
+  margin: 0 8px;
+  padding: 8px 0;
+  border-top: 1px solid #aaa;
+}
+
+.stepTitle:hover {
+  cursor: pointer;
+}
+
+.calendarRow {
+  width: calc(100% - 250px);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* composes: greyBG from "../common/styles.module.css"; */
+}
+
+.calendarRowStep {
+  composes: calendarRow;
+  border-top: 1px solid #aaa;
+}
+
+.calendarDate {
+  width: 4%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendarDateEmpty {
+  composes: calendarDate;
+  background: rgba(0, 0, 0, 0.075);
+}
+
+.calendarDateStart {
+  composes: calendarDate;
+  background: rgba(0, 255, 0, 0.5);
+}
+
+.calendarDateEnd {
+  composes: calendarDate;
+  background: rgba(0, 255, 0, 0.5);
+}
+
+.calendarDateDuring {
+  composes: calendarDate;
+  background: rgba(0, 255, 0, 0.15);
+}
+
+.calendarDateEmptyDiscovered {
+  composes: calendarDate;
+  background: rgba(0, 0, 0, 0.075);
+}
+
+.calendarDateStartDiscovered {
+  composes: calendarDate;
+  background: rgba(0, 0, 255, 0.5);
+}
+
+.calendarDateEndDiscovered {
+  composes: calendarDate;
+  background: rgba(0, 0, 255, 0.5);
+}
+
+.calendarDateDuringDiscovered {
+  composes: calendarDate;
+  background: rgba(0, 0, 255, 0.15);
 }

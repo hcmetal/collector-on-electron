@@ -20,6 +20,7 @@ const { TextArea } = Input;
 
 // IPC bus
 const { ipcRenderer } = window.require("electron");
+const { dialog } = window.require("electron").remote;
 
 let updateImage;
 
@@ -257,6 +258,35 @@ const Treasure = ({ item }) => {
 
                   return false;
                 }}
+                onClick={() => {
+                  dialog.showOpenDialog(
+                    {
+                      filters: [
+                        {
+                          name: "image",
+                          extensions: ["gif", "jpg", "jpeg", "png", "webp"]
+                        }
+                      ]
+                    },
+                    fileNames => {
+                      if (fileNames === undefined) return;
+
+                      const fileName = fileNames[0].replace(/^.*[\\\/]/, "");
+
+                      let hasPicture;
+
+                      for (let picture of item.pictures) {
+                        if (picture.url.includes(fileName)) {
+                          return (hasPicture = true);
+                        }
+                      }
+
+                      if (!hasPicture) {
+                        updateImage(fileName);
+                      }
+                    }
+                  );
+                }}
               >
                 <span className={styles.pictureTileDropContent}>Drop</span>
               </div>
@@ -265,7 +295,8 @@ const Treasure = ({ item }) => {
           {modalPicture && (
             <Modal
               title={modalPicture.url}
-              width={800}
+              style={{ top: 20 }}
+              width={900}
               visible={state.matches("pictureModal.show")}
               okButtonProps={{ style: { display: "none" } }}
               okText="Copy"

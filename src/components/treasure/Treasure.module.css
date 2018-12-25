@@ -1,4 +1,5 @@
 .listItemWrapper {
+  position: relative;
   width: 100%;
 }
 
@@ -7,7 +8,8 @@
 }
 
 .listItemTitle {
-  margin-right: 48px;
+  display: inline-block;
+  margin-right: 24px;
 }
 
 .listItemIcons {
@@ -152,8 +154,13 @@
   position: relative;
   overflow: hidden;
   composes: greyBG from "../common/styles.module.css";
-  opacity: 0.5;
+  opacity: 0.75;
   border-radius: 4px;
+}
+
+.pictureTileDrop:hover {
+  cursor: pointer;
+  opacity: 0.5;
 }
 
 .pictureTileDropContent {
@@ -189,7 +196,7 @@
 .pictureModalImage {
   width: 100%;
   height: 100%;
-  max-height: 600px;
+  max-height: 700px;
   object-fit: contain;
 }
 
@@ -235,7 +242,7 @@
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
-  overflow: hidden;
+  /* overflow: hidden; */
   resize: none;
   position: absolute;
   font-size: 14px;

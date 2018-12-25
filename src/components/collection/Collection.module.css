@@ -1,9 +1,15 @@
 .listItemWrapper {
+  position: relative;
   width: 100%;
 }
 
 .listItemWrapper:hover {
   cursor: pointer;
+}
+
+.listItemTitle {
+  display: inline-block;
+  margin-right: 24px;
 }
 
 .listItemIcons {

@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require("electron");
+const { app, BrowserWindow, ipcMain, shell } = require("electron");
 const isDev = require("electron-is-dev");
 const path = require("path");
 const jetpack = require("fs-jetpack");
@@ -19,7 +19,22 @@ function createWindow() {
   mainWindow.on("closed", () => (mainWindow = null));
 }
 
-app.on("ready", createWindow);
+app.on("ready", () => {
+  createWindow();
+
+  // Open url with default OS browser
+  const isSafeURL = url => {
+    return url.startsWith("http:") || url.startsWith("https:");
+  };
+
+  mainWindow.webContents.on("new-window", (event, url) => {
+    event.preventDefault();
+
+    if (isSafeURL(url)) {
+      shell.openExternal(url);
+    }
+  });
+});
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {

@@ -26,7 +26,7 @@ const CollectionListItem = ({ item }) => {
             style={{ marginRight: "8px", color: eyeColor }}
           />
         )}
-        {item.title}
+        <span className={styles.listItemTitle}>{item.title}</span>
       </div>
     </List.Item>
   );
